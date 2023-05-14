@@ -3,8 +3,6 @@
 <h1> Runway Kicks </h1>
 <div align="center" width="200px">
   <img src="logo.png" alt="html" width="200px"/>
-  <br>
-  <br>
   <p>Welcome to Runway Kicks, a footwear ecommerce website for purchasing products. This website is designed to make it easy for you to browse and purchase a wide variety of shoes, from casual to formal, at competitive prices.</p>
   <br>
   <p>Our system provides a user-friendly platform that enables users to browse products, search, filter, add and place order with ease.. Additionally, all-encompassing administrative interface that enables authorized personnel to perform a wide range of operations, including Create, Read, Update, and Delete (CRUD) functions. </p>
