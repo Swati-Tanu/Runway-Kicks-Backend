@@ -2,7 +2,7 @@
 <h5>This repo is the backend part of the project.</h5>
 <h1> Runway Kicks </h1>
 <div align="center">
-  <img src="logo.png" alt="html" width="200" height="300"/>
+  <img src="logo.png" alt="html" width="200px" height="300px"/>
   <br>
   <br>
   <p>Welcome to Runway Kicks, a footwear ecommerce website for purchasing products. This website is designed to make it easy for you to browse and purchase a wide variety of shoes, from casual to formal, at competitive prices.</p>
