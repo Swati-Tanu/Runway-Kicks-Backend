@@ -42,7 +42,7 @@
 ### Clone this Project
 
 ```
-https://github.com/Swati-Tanu/Runway-Kicks.git
+https://github.com/Swati-Tanu/Runway-Kicks-Backend.git
 ```
 
 ### Install npm Packages
@@ -51,16 +51,10 @@ https://github.com/Swati-Tanu/Runway-Kicks.git
 npm i --global
 ```
 
-### Go to Backend Folder
-
-```javascript
-cd backend
-```
-
 ### Run Server
 
 ```javascript
-npx nodemon index.js
+npm start
 ```
 
 ### Runs the project in the development mode
