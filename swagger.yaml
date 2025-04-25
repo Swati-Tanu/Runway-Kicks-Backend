@@ -1,0 +1,1307 @@
+openapi: 3.0.0
+info:
+  title: Runway Kicks API
+  version: 1.0.0
+  description: API documentation for the Runway Kicks backend
+
+servers:
+  - url: http://localhost:7000
+    description: Local development server
+
+paths:
+  /:
+    get:
+      summary: Welcome route
+      tags:
+        - Home
+      responses:
+        "200":
+          description: Welcome message
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Welcome to backend Home page of Runway Kicks!
+
+  /admin/register:
+    post:
+      summary: Register a new admin
+      tags:
+        - Admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - password
+                - verification
+              properties:
+                name:
+                  type: string
+                  example: Admin Name
+                email:
+                  type: string
+                  example: admin@example.com
+                password:
+                  type: string
+                  example: adminpassword123
+                verification:
+                  type: string
+                  example: admin_verification_code
+      responses:
+        "200":
+          description: Admin registration response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: Registered as Admin
+
+  /admin/login:
+    post:
+      summary: Log in an existing admin
+      tags:
+        - Admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  example: admin@example.com
+                password:
+                  type: string
+                  example: adminpassword123
+      responses:
+        "200":
+          description: Admin login response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: Admin Login Successful
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6...
+                  adminName:
+                    type: string
+                    example: Admin Name
+  /user/register:
+    post:
+      summary: Register a new user
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - password
+              properties:
+                name:
+                  type: string
+                  example: John Doe
+                email:
+                  type: string
+                  example: john@example.com
+                password:
+                  type: string
+                  example: password123
+      responses:
+        "200":
+          description: Registration response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: Registered
+
+  /user/login:
+    post:
+      summary: Log in an existing user
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  example: john@example.com
+                password:
+                  type: string
+                  example: password123
+      responses:
+        "200":
+          description: Login response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: Login Successful
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6...
+                  userName:
+                    type: string
+                    example: John Doe
+
+  /men:
+    get:
+      summary: Get all men's products
+      tags:
+        - Men
+      responses:
+        "200":
+          description: List of men's products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    price:
+                      type: number
+                      format: float
+                    category:
+                      type: string
+                    color:
+                      type: string
+                    offer:
+                      type: boolean
+                example:
+                  - title: "Men's T-Shirt"
+                    price: 25.99
+                    category: "Clothing"
+                    color: "Red"
+                    offer: false
+                  - title: "Men's Shoes"
+                    price: 59.99
+                    category: "Footwear"
+                    color: "Black"
+                    offer: true
+
+  /men/filter:
+    get:
+      summary: Filter men's products by category and/or color
+      tags:
+        - Men
+      parameters:
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+          example: "Clothing"
+        - name: color
+          in: query
+          required: false
+          schema:
+            type: string
+          example: "Red"
+      responses:
+        "200":
+          description: Filtered list of men's products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                example:
+                  - title: "Men's T-Shirt"
+                    price: 25.99
+                    category: "Clothing"
+                    color: "Red"
+                    offer: false
+
+  /men/exc:
+    get:
+      summary: Get men's products with offers
+      tags:
+        - Men
+      responses:
+        "200":
+          description: List of men's products with offers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                example:
+                  - title: "Discounted Shoes"
+                    price: 49.99
+                    category: "Footwear"
+                    color: "Black"
+                    offer: true
+
+  /men/sort:
+    get:
+      summary: Sort men's products by price or title
+      tags:
+        - Men
+      parameters:
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - lth
+              - htl
+              - asc
+              - desc
+          example: "lth"
+      responses:
+        "200":
+          description: Sorted list of men's products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                example:
+                  - title: "Men's T-Shirt"
+                    price: 19.99
+                    category: "Clothing"
+                    color: "Blue"
+                    offer: false
+
+  /men/search:
+    get:
+      summary: Search for men's products by title
+      tags:
+        - Men
+      parameters:
+        - name: title
+          in: query
+          required: true
+          schema:
+            type: string
+          example: "Shirt"
+      responses:
+        "200":
+          description: List of men's products matching the search term
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                example:
+                  - title: "Men's Shirt"
+                    price: 29.99
+                    category: "Clothing"
+                    color: "White"
+                    offer: false
+
+  /men/create:
+    post:
+      summary: Create a new men's product (admin only)
+      tags:
+        - Men
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+                - price
+                - category
+                - color
+                - offer
+              properties:
+                title:
+                  type: string
+                  example: "Men's Jacket"
+                price:
+                  type: number
+                  format: float
+                  example: 79.99
+                category:
+                  type: string
+                  example: "Clothing"
+                color:
+                  type: string
+                  example: "Black"
+                offer:
+                  type: boolean
+                  example: false
+      responses:
+        "200":
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "New product created"
+
+  /men/update/{id}:
+    patch:
+      summary: Update a men's product (admin only)
+      tags:
+        - Men
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "60c72b2f9f1b2c3d8c1e1d1a"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "Updated Men's Jacket"
+                price:
+                  type: number
+                  format: float
+                  example: 89.99
+                category:
+                  type: string
+                  example: "Clothing"
+                color:
+                  type: string
+                  example: "Red"
+                offer:
+                  type: boolean
+                  example: true
+      responses:
+        "200":
+          description: Product updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Product updated"
+
+  /men/delete/{id}:
+    delete:
+      summary: Delete a men's product (admin only)
+      tags:
+        - Men
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "60c72b2f9f1b2c3d8c1e1d1a"
+      responses:
+        "200":
+          description: Product deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Product deleted"
+
+  /women:
+    get:
+      summary: Get all women's products
+      tags:
+        - Women
+      responses:
+        "200":
+          description: List of women's products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    price:
+                      type: number
+                      format: float
+                    category:
+                      type: string
+                    color:
+                      type: string
+                    offer:
+                      type: boolean
+                example:
+                  - title: "Women's Dress"
+                    price: 39.99
+                    category: "Clothing"
+                    color: "Red"
+                    offer: false
+                  - title: "Women's Shoes"
+                    price: 49.99
+                    category: "Footwear"
+                    color: "Black"
+                    offer: true
+
+  /women/filter:
+    get:
+      summary: Filter women's products by category and/or color
+      tags:
+        - Women
+      parameters:
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+          example: "Clothing"
+        - name: color
+          in: query
+          required: false
+          schema:
+            type: string
+          example: "Red"
+      responses:
+        "200":
+          description: Filtered list of women's products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                example:
+                  - title: "Women's Dress"
+                    price: 39.99
+                    category: "Clothing"
+                    color: "Red"
+                    offer: false
+
+  /women/exc:
+    get:
+      summary: Get women's products with offers
+      tags:
+        - Women
+      responses:
+        "200":
+          description: List of women's products with offers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                example:
+                  - title: "Discounted Women's Shoes"
+                    price: 44.99
+                    category: "Footwear"
+                    color: "Black"
+                    offer: true
+
+  /women/sort:
+    get:
+      summary: Sort women's products by price or title
+      tags:
+        - Women
+      parameters:
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - lth
+              - htl
+              - asc
+              - desc
+          example: "lth"
+      responses:
+        "200":
+          description: Sorted list of women's products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                example:
+                  - title: "Women's Dress"
+                    price: 29.99
+                    category: "Clothing"
+                    color: "Blue"
+                    offer: false
+
+  /women/search:
+    get:
+      summary: Search for women's products by title
+      tags:
+        - Women
+      parameters:
+        - name: title
+          in: query
+          required: true
+          schema:
+            type: string
+          example: "Dress"
+      responses:
+        "200":
+          description: List of women's products matching the search term
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                example:
+                  - title: "Women's Dress"
+                    price: 29.99
+                    category: "Clothing"
+                    color: "Blue"
+                    offer: false
+
+  /women/create:
+    post:
+      summary: Create a new women's product (admin only)
+      tags:
+        - Women
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+                - price
+                - category
+                - color
+                - offer
+              properties:
+                title:
+                  type: string
+                  example: "Women's Jacket"
+                price:
+                  type: number
+                  format: float
+                  example: 79.99
+                category:
+                  type: string
+                  example: "Clothing"
+                color:
+                  type: string
+                  example: "Black"
+                offer:
+                  type: boolean
+                  example: false
+      responses:
+        "200":
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "New product created"
+
+  /women/update/{id}:
+    patch:
+      summary: Update a women's product (admin only)
+      tags:
+        - Women
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "60c72b2f9f1b2c3d8c1e1d1a"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "Updated Women's Jacket"
+                price:
+                  type: number
+                  format: float
+                  example: 89.99
+                category:
+                  type: string
+                  example: "Clothing"
+                color:
+                  type: string
+                  example: "Red"
+                offer:
+                  type: boolean
+                  example: true
+      responses:
+        "200":
+          description: Product updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Product updated"
+
+  /women/delete/{id}:
+    delete:
+      summary: Delete a women's product (admin only)
+      tags:
+        - Women
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "60c72b2f9f1b2c3d8c1e1d1a"
+      responses:
+        "200":
+          description: Product deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Product deleted"
+
+  /kid:
+    get:
+      summary: Get all kids' products
+      tags:
+        - Kids
+      responses:
+        "200":
+          description: List of kids' products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    price:
+                      type: number
+                      format: float
+                    category:
+                      type: string
+                    color:
+                      type: string
+                    offer:
+                      type: boolean
+                example:
+                  - title: "Kids' Toy"
+                    price: 19.99
+                    category: "Toys"
+                    color: "Blue"
+                    offer: false
+                  - title: "Kids' T-Shirt"
+                    price: 9.99
+                    category: "Clothing"
+                    color: "Red"
+                    offer: true
+
+  /kid/filter:
+    get:
+      summary: Filter kids' products by category and/or color
+      tags:
+        - Kids
+      parameters:
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+          example: "Clothing"
+        - name: color
+          in: query
+          required: false
+          schema:
+            type: string
+          example: "Red"
+      responses:
+        "200":
+          description: Filtered list of kids' products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                example:
+                  - title: "Kids' T-Shirt"
+                    price: 9.99
+                    category: "Clothing"
+                    color: "Red"
+                    offer: true
+
+  /kid/exc:
+    get:
+      summary: Get kids' products with offers
+      tags:
+        - Kids
+      responses:
+        "200":
+          description: List of kids' products with offers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                example:
+                  - title: "Discounted Kids' T-Shirt"
+                    price: 7.99
+                    category: "Clothing"
+                    color: "Green"
+                    offer: true
+
+  /kid/sort:
+    get:
+      summary: Sort kids' products by price or title
+      tags:
+        - Kids
+      parameters:
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - lth
+              - htl
+              - asc
+              - desc
+          example: "lth"
+      responses:
+        "200":
+          description: Sorted list of kids' products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                example:
+                  - title: "Kids' Toy"
+                    price: 9.99
+                    category: "Toys"
+                    color: "Blue"
+                    offer: false
+
+  /kid/search:
+    get:
+      summary: Search for kids' products by title
+      tags:
+        - Kids
+      parameters:
+        - name: title
+          in: query
+          required: true
+          schema:
+            type: string
+          example: "Toy"
+      responses:
+        "200":
+          description: List of kids' products matching the search term
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                example:
+                  - title: "Kids' Toy"
+                    price: 19.99
+                    category: "Toys"
+                    color: "Blue"
+                    offer: false
+
+  /kid/create:
+    post:
+      summary: Create a new kids' product (admin only)
+      tags:
+        - Kids
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+                - price
+                - category
+                - color
+                - offer
+              properties:
+                title:
+                  type: string
+                  example: "Kids' T-Shirt"
+                price:
+                  type: number
+                  format: float
+                  example: 15.99
+                category:
+                  type: string
+                  example: "Clothing"
+                color:
+                  type: string
+                  example: "Blue"
+                offer:
+                  type: boolean
+                  example: false
+      responses:
+        "200":
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "New product created"
+
+  /kid/update/{id}:
+    patch:
+      summary: Update a kids' product (admin only)
+      tags:
+        - Kids
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "60c72b2f9f1b2c3d8c1e1d1a"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "Updated Kids' T-Shirt"
+                price:
+                  type: number
+                  format: float
+                  example: 12.99
+                category:
+                  type: string
+                  example: "Clothing"
+                color:
+                  type: string
+                  example: "Yellow"
+                offer:
+                  type: boolean
+                  example: true
+      responses:
+        "200":
+          description: Product updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Product updated"
+
+  /kid/delete/{id}:
+    delete:
+      summary: Delete a kids' product (admin only)
+      tags:
+        - Kids
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "60c72b2f9f1b2c3d8c1e1d1a"
+      responses:
+        "200":
+          description: Product deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Product deleted"
+
+  /cart:
+    get:
+      summary: Get all cart items for the authenticated user
+      tags:
+        - Cart
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: List of cart items for the authenticated user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    productID:
+                      type: string
+                    quantity:
+                      type: integer
+                    price:
+                      type: number
+                      format: float
+                    userID:
+                      type: string
+                example:
+                  - productID: "60c72b2f9f1b2c3d8c1e1d1a"
+                    quantity: 2
+                    price: 19.99
+                    userID: "60c72b2f9f1b2c3d8c1e1d1b"
+                  - productID: "60c72b2f9f1b2c3d8c1e1d2a"
+                    quantity: 1
+                    price: 29.99
+                    userID: "60c72b2f9f1b2c3d8c1e1d1b"
+
+  /cart/create:
+    post:
+      summary: Add a product to the cart (authenticated user only)
+      tags:
+        - Cart
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - productID
+                - quantity
+                - userID
+              properties:
+                productID:
+                  type: string
+                  example: "60c72b2f9f1b2c3d8c1e1d1a"
+                quantity:
+                  type: integer
+                  example: 1
+                userID:
+                  type: string
+                  example: "60c72b2f9f1b2c3d8c1e1d1b"
+      responses:
+        "200":
+          description: Product successfully added to cart
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Product added to Cart"
+        "400":
+          description: Product already in cart
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Product already available in Cart"
+
+  /cart/update/{id}:
+    patch:
+      summary: Update a cart item (authenticated user only)
+      tags:
+        - Cart
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "60c72b2f9f1b2c3d8c1e1d1a"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+                  example: 2
+      responses:
+        "200":
+          description: Cart item updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Cart Updated"
+        "403":
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "You are not authorized"
+
+  /cart/delete/all:
+    delete:
+      summary: Remove all items from the cart (authenticated user only)
+      tags:
+        - Cart
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Cart emptied and items added to order history
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Cart Emptied"
+        "403":
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "You are not authorized"
+
+  /cart/delete/{id}:
+    delete:
+      summary: Delete a specific cart item (authenticated user only)
+      tags:
+        - Cart
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "60c72b2f9f1b2c3d8c1e1d1a"
+      responses:
+        "200":
+          description: Cart item deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "Cart Item Deleted"
+        "403":
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "You are not authorized"
+
+  /order:
+    get:
+      summary: Get all orders for the authenticated user
+      tags:
+        - Order
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: List of orders for the authenticated user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    orderID:
+                      type: string
+                    userID:
+                      type: string
+                    productID:
+                      type: string
+                    quantity:
+                      type: integer
+                    totalPrice:
+                      type: number
+                      format: float
+                    status:
+                      type: string
+                      enum: [pending, completed, cancelled]
+                example:
+                  - orderID: "60c72b2f9f1b2c3d8c1e1d1a"
+                    userID: "60c72b2f9f1b2c3d8c1e1d1b"
+                    productID: "60c72b2f9f1b2c3d8c1e1d2a"
+                    quantity: 2
+                    totalPrice: 39.98
+                    status: "completed"
+                  - orderID: "60c72b2f9f1b2c3d8c1e1d2b"
+                    userID: "60c72b2f9f1b2c3d8c1e1d1b"
+                    productID: "60c72b2f9f1b2c3d8c1e1d2c"
+                    quantity: 1
+                    totalPrice: 19.99
+                    status: "pending"
+
+  /order/search:
+    get:
+      summary: Search orders by product title for the authenticated user
+      tags:
+        - Order
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: title
+          in: query
+          required: true
+          schema:
+            type: string
+          example: "Nike"
+      responses:
+        "200":
+          description: List of orders that match the search query
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    orderID:
+                      type: string
+                    userID:
+                      type: string
+                    productID:
+                      type: string
+                    quantity:
+                      type: integer
+                    totalPrice:
+                      type: number
+                      format: float
+                    status:
+                      type: string
+                      enum: [pending, completed, cancelled]
+                example:
+                  - orderID: "60c72b2f9f1b2c3d8c1e1d1a"
+                    userID: "60c72b2f9f1b2c3d8c1e1d1b"
+                    productID: "60c72b2f9f1b2c3d8c1e1d2a"
+                    quantity: 2
+                    totalPrice: 39.98
+                    status: "completed"
+        "400":
+          description: No orders found for the specified title
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: "No orders found for the specified title"

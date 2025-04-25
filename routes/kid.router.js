@@ -1,5 +1,4 @@
 const express=require("express");
-require("dotenv").config();
 const {KidModel} =require("../models/kid.model.js");
 const {AdminModel}=require("../models/admin.model.js");
 const {adminAuth}=require("../middlewares/admin.auth.js");
@@ -69,7 +68,7 @@ kidRouter.get("/sort", async(req,res)=>{
 kidRouter.get("/search", async(req,res)=>{
     let query=req.query;
     try{
-        const kid=await KidModel.find({title:{$regex:query.q,$options:"i"}});
+        const kid=await KidModel.find({title:{$regex:query.title,$options:"i"}});
         res.send(kid);
     }catch(err){
         res.send({"err in getting kid products":err});

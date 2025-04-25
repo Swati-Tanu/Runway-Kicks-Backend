@@ -1,0 +1,5 @@
+MONGO_URL=mongodb://username:password@localhost:27017/database_name
+PORT=7000
+SALT=1
+KEY="topsecret"
+ADMIN_VERIFICATION=1
