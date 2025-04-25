@@ -79,6 +79,11 @@ npm start
 
 [SWAGGER UI](https://runway-kicks.onrender.com/api-docs/)
 
+[Postman Collection](https://github.com/user-attachments/files/19909257/RunwayKicks.postman_collection.json)
+
+
+
+
 | `Author` |
 | :------: |
 
