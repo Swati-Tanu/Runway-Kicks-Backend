@@ -2,11 +2,28 @@ openapi: 3.0.0
 info:
   title: Runway Kicks API
   version: 1.0.0
-  description: API documentation for the Runway Kicks backend
+  description: |
+    The Runway Kicks API provides the backend functionality for the Runway Kicks e-commerce platform. This API allows users to manage various aspects of an online store, such as viewing, searching, and filtering products, managing shopping carts, and placing orders.
+
+    The API is designed to handle the operations for different user roles, including customers, admins, and users interacting with products and their orders. It also includes features for product categories, price sorting, special offers, and more.
+
+    **Key Features:**
+    - **User Management**: Handles user authentication and profile management.
+    - **Product Catalog**: Supports filtering, sorting, and searching products by categories such as Men, Women, and Kids. Admins can add, update, and delete products.
+    - **Shopping Cart**: Users can add, update, and remove items in their cart, and checkout to place an order.
+    - **Order Management**: Users can view and search their order history.
+    - **Admin Features**: Admins have additional capabilities for managing products, orders, and user data.
+
+    **Authentication**:
+    - All endpoints related to user-specific data (such as cart and orders) require authentication using Bearer tokens.
+    - Admin endpoints require a special admin token for authorization.
+
+    This API follows RESTful principles, using standard HTTP methods (GET, POST, PATCH, DELETE) and status codes to indicate the success or failure of requests.
+
+    This documentation will guide developers on how to interact with the Runway Kicks API for building applications or integrations.
 
 servers:
-  - url: http://localhost:7000
-    description: Local development server
+  - url: https://runway-kicks.onrender.com
 
 paths:
   /:

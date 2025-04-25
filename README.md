@@ -1,4 +1,5 @@
-## ABOUT THE PROJECT 
+## ABOUT THE PROJECT
+
 <h5>This repo is the backend part of the project.</h5>
 <h1> Runway Kicks </h1>
 <div align="center" width="200px">
@@ -7,7 +8,7 @@
   <br>
   <p>Our system provides a user-friendly platform that enables users to browse products, search, filter, add and place order with ease.. Additionally, all-encompassing administrative interface that enables authorized personnel to perform a wide range of operations, including Create, Read, Update, and Delete (CRUD) functions. </p>
 </div>
-<hr> 
+<hr>
 
 ## TECH STACKS USED
 
@@ -23,19 +24,21 @@
 </p>
 <hr>
 
-## Features 
--  Authentication
--  API Validation
--  Responsive
--  Cross Platform
--  Registeration/Signin/Logout
--  Product Search 
--  Product Filter
--  Add to Cart
--  Order History Fetch
--  Admin can perform all CRUD operations
+## Features
+
+- Authentication
+- API Validation
+- Responsive
+- Cross Platform
+- Registeration/Signin/Logout
+- Product Search
+- Product Filter
+- Add to Cart
+- Order History Fetch
+- Admin can perform all CRUD operations
 
 ## Run Locally
+
 ### Clone this Project
 
 ```
@@ -49,27 +52,23 @@ npm i --global
 ```
 
 ### Go to Backend Folder
+
 ```javascript
 cd backend
 ```
 
 ### Run Server
+
 ```javascript
 npx nodemon index.js
 ```
+
 ### Runs the project in the development mode
 
 [http://localhost:5000](http://localhost:5000)
 
-
-### Environment Variables Required
-`mongourl`
-
-`key`
-
-`port`
-
 ## NPM Packages
+
 <p align = "center">
 <img src="https://repository-images.githubusercontent.com/139898859/9617c480-81c2-11ea-94fc-322231ead1f0" alt="bcrypt.png" width="70" height="50"/>
 <img src="https://github.com/faraz412/cozy-passenger-4798/blob/main/Frontend/Files/cors.png?raw=true" alt="cors" width="70" height="50"/>
@@ -79,116 +78,14 @@ npx nodemon index.js
 <img src="https://user-images.githubusercontent.com/13700/35731649-652807e8-080e-11e8-88fd-1b2f6d553b2d.png" alt="nodemon.png" width="50" height="50"/>
 </p>
 
-## API Endpoints
-   #### Welcome
-```javascript
-GET  /
-```
-  #### Registration
-```javascript
-POST  /user/register
-```
-  #### Signin
-```javascript
-POST  /user/login
-```
-#### Men Products 
-```javascript
-GET /men/
-GET /men/filter
-GET /men/exc
-GET /men/sort
-GET /men/search
-POST  /men/create
-PATCH /men/update/:id
-DELETE /men/delete/:id
-```
-#### Women Products 
-```javascript
-GET /women/
-GET /women/filter
-GET /women/exc
-GET /women/sort
-GET /women/search
-POST  /women/create
-PATCH /women/update/:id
-DELETE /women/delete/:id
-```
-
-#### Kids Products 
-```javascript
-GET /kid/
-GET /kid/filter
-GET /kid/exc
-GET /kid/sort
-GET /kid/search
-POST  /kid/create
-PATCH /kid/update/:id
-DELETE /kid/delete/:id
-```
-
-#### Orders
-```javascript
-GET /order/
-GET /order/search
-```
-
-#### Carts
-```javascript
-GET /cart/
-POST  /cart/create
-PATCH /cart/update/:id
-DELETE /cart/delete/all
-DELETE /cart/delete/:id
-```
-
-  #### Admin 
- ```javascript
- POST /admin/register
- POST /admin/login
-
- Credentials: 
- admin@gmail.com
- admin
- 
- ```
-    
-   
-<div align = "center">  
-  
-  
-| `Project Highlights` |
-| :------------------: | 
-
- <div align = "center">
-   <h2>Landing Page</h2>
-   
-   <br>
-   <h2>Product Page</h2>
-    
-   <h2>Sale Page</h2>
-   
-   <br>
-   <h2>Community Page</h2>
-   
-   <br>
-   <h2>Admin Dashboard</h2>
-   
-   <br>
-<div/>
-  <br>
-
 | `Demo` |
-| :----: | 
-   
+| :----: |
 
-[FRONTEND]()
+[LIVE](https://runway-kicks.onrender.com/)
 
-[BACKEND](https://hungry-hospital-gown-lamb.cyclic.app/)
+[SWAGGER UI](https://runway-kicks.onrender.com/api-docs/)
 
- 
 | `Author` |
-| :-------: | 
- 
- [SWATI TANU](https://github.com/Swati-Tanu) 
- 
+| :------: |
+
+[SWATI TANU](https://github.com/Swati-Tanu)
